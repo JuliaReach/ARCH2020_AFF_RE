@@ -7,37 +7,38 @@ Pkg.activate(@__DIR__)
 Pkg.instantiate()
 
 function main()
+    global io = open("runtimes.csv", "w")
+
     println("Running AFF benchmarks...")
 
-#=
-    println("###\nRunning Van der Pol benchmark\n###")
-    include("VanDerPol/vanderpol_benchmark.jl")
-    GC.gc()
+    # Production-destruction benchmark
+    println("###\nRunning electromechanic-break benchmark\n###")
+    include("models/EMBrake/embrake_benchmark.jl")
 
-    println("###\nRunning Laub-Loomis benchmark\n###")
-    include("LaubLoomis/laubloomis_benchmark.jl")
-    GC.gc()
+    # Coupled Van der Pol benchmark
+    #println("###\nRunning Van der Pol benchmark\n###")
+    #include("models/VanDerPol/vanderpol_benchmark.jl")
 
-    println("###\nRunning Quadrotor benchmark\n###")
-    include("Quadrotor/quadrotor_benchmark.jl")
-    GC.gc()
+    # Laub-Loomis benchmark
+    #println("###\nRunning Laub-Loomis benchmark\n###")
+    #include("models/LaubLoomis/laubloomis_benchmark.jl")
 
-    println("###\nRunning production-destruction benchmark\n###")
-    include("ProductionDestruction/production_destruction_benchmark.jl")
-    GC.gc()
+    # Quadrotor benchmark
+    #println("###\nRunning Quadrotor benchmark\n###")
+    #include("models/Quadrotor/quadrotor_benchmark.jl")
 
-    println("###\nRunning Lotka-Volterra benchmark\n###")
-    include("LotkaVolterra/lotka_volterra_benchmark.jl")
-    GC.gc()
+    # Lotka-Volterra tangential crossing benchmark
+    #println("###\nRunning Lotka-Volterra tangential crossing benchmark\n###")
+    #include("models/LotkaVolterra/lotka_volterra_benchmark.jl")
 
-    println("###\nRunning Spacecraft benchmark\n###")
-    include("Spacecraft/spaccraft_benchmark.jl")
-    GC.gc()
-=#
+    # Spacecraft benchmark
+    #println("###\nSpacecraft benchmark\n###")
+    #include("models/Spacecraft/spacecraft_benchmark.jl")
 
+    print(io, "\n")
     println("Finished running benchmarks.")
+    close(io)
     nothing
-
 end
 
 main()
