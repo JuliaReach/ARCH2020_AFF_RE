@@ -186,6 +186,12 @@ git-tree-sha1 = "cde61b7c72023d15e2aaae8d4eb3e2c94f5bdb7b"
 uuid = "6912e4f1-e036-58b0-9138-08d1e6358ea9"
 version = "0.6.0"
 
+[[ExponentialUtilities]]
+deps = ["LinearAlgebra", "Printf", "Requires", "SparseArrays"]
+git-tree-sha1 = "91f7498b66205431fe3e35833cda97a22b1ab6a5"
+uuid = "d4d017d3-3776-5f7e-afef-a10c40355c18"
+version = "1.7.0"
+
 [[ExprTools]]
 git-tree-sha1 = "6f0517056812fd6aa3af23d4b70d5325a2ae4e95"
 uuid = "e2ba6199-217a-4e67-a87a-7c52f15ade04"
