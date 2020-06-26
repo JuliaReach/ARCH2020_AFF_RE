@@ -11,29 +11,13 @@ function main()
 
     println("Running AFF benchmarks...")
 
-    # Production-destruction benchmark
+    # Electromechanic break benchmark
     println("###\nRunning electromechanic-break benchmark\n###")
-    include("models/EMBrake/embrake_benchmark.jl")
+    #include("models/EMBrake/embrake_benchmark.jl")
 
-    # Coupled Van der Pol benchmark
-    #println("###\nRunning Van der Pol benchmark\n###")
-    #include("models/VanDerPol/vanderpol_benchmark.jl")
-
-    # Laub-Loomis benchmark
-    #println("###\nRunning Laub-Loomis benchmark\n###")
-    #include("models/LaubLoomis/laubloomis_benchmark.jl")
-
-    # Quadrotor benchmark
-    #println("###\nRunning Quadrotor benchmark\n###")
-    #include("models/Quadrotor/quadrotor_benchmark.jl")
-
-    # Lotka-Volterra tangential crossing benchmark
-    #println("###\nRunning Lotka-Volterra tangential crossing benchmark\n###")
-    #include("models/LotkaVolterra/lotka_volterra_benchmark.jl")
-
-    # Spacecraft benchmark
-    #println("###\nSpacecraft benchmark\n###")
-    #include("models/Spacecraft/spacecraft_benchmark.jl")
+    # Building benchmark
+    println("###\nRunning building benchmark\n###")
+    include("models/Building/building_benchmark.jl")
 
     print(io, "\n")
     println("Finished running benchmarks.")
