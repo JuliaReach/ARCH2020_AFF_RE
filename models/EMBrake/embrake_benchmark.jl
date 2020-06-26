@@ -115,7 +115,7 @@ println("maximum time that x < x0 , case $(cases[5]) : $t")
 # benchmark
 SUITE[model][cases[5]] = @benchmarkable solve($prob_pv_1_with_jit, max_jumps=1001, alg=$alg)
 
-prob_pv_1_with_jit = nothing
+sol_pv_1_with_jit = nothing
 GC.gc()
 
 # ----------------------------------------
@@ -195,3 +195,6 @@ plot!(fig, [X for X in polys[1:500:end]], color=:black, lw=1.0, linecolor=:black
 
 savefig(fig, "ARCH-COMP20-JuliaReach-EMBrake.png")
 savefig(fig, "ARCH-COMP20-JuliaReach-EMBrake.pdf")
+
+sol_no_pv_no_jit = nothing
+GC.gc()
