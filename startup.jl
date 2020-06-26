@@ -13,7 +13,7 @@ function main()
 
     # Electromechanic break benchmark
     println("###\nRunning electromechanic-break benchmark\n###")
-    include("models/EMBrake/embrake_benchmark.jl")
+    #include("models/EMBrake/embrake_benchmark.jl")
 
     # Building benchmark
     println("###\nRunning building benchmark\n###")
