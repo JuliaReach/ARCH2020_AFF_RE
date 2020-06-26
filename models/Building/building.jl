@@ -3,9 +3,10 @@ using ReachabilityAnalysis, JLD2
 LazySets.set_ztol(Float64, 1e-14)
 
 const x25 = [zeros(24); 1.0; zeros(23)]
+building_path = joinpath(@__DIR__, "building.jld2")
 
 function building_BLDF01()
-    @load "building.jld2" H
+    @load building_path H
     vars = collect(keys(H.ext[:variables]))
     A = state_matrix(mode(H, 1))
     n = size(A, 1) - 1

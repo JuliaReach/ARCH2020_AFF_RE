@@ -3,10 +3,11 @@ using BenchmarkTools: minimum, median
 
 SUITE = BenchmarkGroup()
 model = "BUILDING"
-cases = ["BLDF01-BDS01", "BLDF01-BDU01", "BLDF01-BDU02",
-         "BLDF01-BDS01-discrete", "BLDF01-BDU01-discrete", "BLDF01-BDU02-discrete"]
+cases = ["BLDF01-BDS01", "BLDF01-BDU01", "BLDF01-BDU02"]
+         #"BLDF01-BDS01-discrete", "BLDF01-BDU01-discrete", "BLDF01-BDU02-discrete",
+         #"BLDC01-BDS01", "BLDC01-BDU01", "BLDC01-BDU02"
+         #"BLDC01-BDS01-discrete", "BLDC01-BDU01-discrete", "BLDC01-BDU02-discrete",
 
-# , "BLDF01-D", "BLDC01", "BLDC01-D"]
 SUITE[model] = BenchmarkGroup()
 
 include("building.jl")
@@ -67,7 +68,7 @@ println("median time for each benchmark:\n", median(results))
 runtimes = Dict()
 for (i, c) in enumerate(cases)
     t = median(results[model][c]).time * 1e-9
-    runtimes[c] = t
+    runtimes[c] = round(t, digits=3)
 end
 
 for (i, c) in enumerate(cases)
