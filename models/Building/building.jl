@@ -40,5 +40,5 @@ function building_BLDC01()
     U = Hyperrectangle(low=[0.8], high=[1.0])
     X0 = X0 * U
 
-    prob_BLDF01 = InitialValueProblem(S, X0)
+    prob_BLDC01 = InitialValueProblem(S, X0)
 end
