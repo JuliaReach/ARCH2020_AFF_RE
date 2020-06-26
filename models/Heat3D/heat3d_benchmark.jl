@@ -45,5 +45,5 @@ out = Vector{Float64}(undef, NSTEPS)
 # ----------------------------------------
 A, Aᵀδ, Ω₀, ℓ = heat04(δ=0.02)
 out = Vector{Float64}(undef, NSTEPS)
-@time RA.reach_homog_dir_LGG09_expv_pk2!(out, Ω₀, Aᵀ, sparse(ℓ), NSTEPS, recursive, m=211, tol=1e-8)
+@time RA.reach_homog_dir_LGG09_expv_pk2!(out, Ω₀, Aᵀ, sparse(ℓ), NSTEPS, recursive, hermitian=true, m=211, tol=1e-8)
 @show maximum(out)
