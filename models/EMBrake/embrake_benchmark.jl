@@ -8,7 +8,7 @@ SUITE[model] = BenchmarkGroup()
 
 include("embrake.jl")
 validation = []
-time = []
+times = []
 
 # ----------------------------------------
 #  BRKDC01
@@ -16,18 +16,15 @@ time = []
 
 prob_no_pv_no_jit = embrake_no_pv(ζ=0., Tsample=1e-4)
 alg = GLGM06(δ=1e-7, max_order=1, static=true, dim=4, ngens=4)
-@btime sol_no_pv_no_jit = solve(prob_no_pv_no_jit, max_jumps=1001, alg=alg)
-
+sol_no_pv_no_jit = solve(prob_no_pv_no_jit, max_jumps=1001, alg=alg)
 
 # verify that specification holds
 property = ρ(eₓ, sol_no_pv_no_jit) < x0
 push!(validation, Int(property))
 
-GC.gc()
-
-t = max_time(sol)
+t = max_time(sol_no_pv_no_jit)
 push!(times, trunc(t, digits=4))
-println("maximum time than x < x0 , case $(cases[1]) : $t")
+println("maximum time that x < x0 , case $(cases[1]) : $t")
 
 # benchmark
 SUITE[model][cases[1]] = @benchmarkable solve($prob_no_pv_no_jit, max_jumps=1001, alg=$alg)
@@ -36,24 +33,112 @@ SUITE[model][cases[1]] = @benchmarkable solve($prob_no_pv_no_jit, max_jumps=1001
 #  BRKDC01 (discrete-time)
 # ----------------------------------------
 
+alg = GLGM06(δ=1e-7, max_order=1, static=true, dim=4, ngens=4, approx_model=NoBloating())
+sol_no_pv_no_jit_discrete = solve(prob_no_pv_no_jit, max_jumps=1001, alg=alg)
+
+# verify that specification holds
+property = ρ(eₓ, sol_no_pv_no_jit_discrete) < x0
+push!(validation, Int(property))
+
+t = max_time(sol_no_pv_no_jit_discrete)
+push!(times, trunc(t, digits=4))
+println("maximum time that x < x0 , case $(cases[2]) : $t")
+
+# benchmark
+SUITE[model][cases[2]] = @benchmarkable solve($prob_no_pv_no_jit, max_jumps=1001, alg=$alg)
+
+sol_no_pv_no_jit_discrete = nothing
+GC.gc()
+
 # ----------------------------------------
 #  BRKNC01
 # ----------------------------------------
+
+prob_no_pv_with_jit = embrake_no_pv(ζ=[-1e-8, 1e-7], Tsample=1e-4)
+alg = GLGM06(δ=1e-8, max_order=1, static=true, dim=4, ngens=4)
+sol_no_pv_with_jit = solve(prob_no_pv_with_jit, max_jumps=1001, alg=alg)
+
+# verify that specification holds
+property = ρ(eₓ, sol_no_pv_with_jit) < x0
+push!(validation, Int(property))
+
+GC.gc()
+t = max_time(sol_no_pv_with_jit)
+push!(times, trunc(t, digits=4))
+println("maximum time that x < x0 , case $(cases[3]) : $t")
+
+# benchmark
+SUITE[model][cases[3]] = @benchmarkable solve($prob_no_pv_with_jit, max_jumps=1001, alg=$alg)
+
+sol_no_pv_with_jit = nothing
+GC.gc()
 
 # ----------------------------------------
 #  BRKNC01 (discrete-time)
 # ----------------------------------------
 
+alg = GLGM06(δ=1e-8, max_order=1, static=true, dim=4, ngens=4, approx_model=NoBloating())
+sol_no_pv_no_jit_discrete = solve(prob_no_pv_no_jit, max_jumps=1001, alg=alg)
+
+# verify that specification holds
+property = ρ(eₓ, sol_no_pv_no_jit_discrete) < x0
+push!(validation, Int(property))
+
+GC.gc()
+t = max_time(sol_no_pv_no_jit_discrete)
+push!(times, trunc(t, digits=4))
+println("maximum time that x < x0 , case $(cases[4]) : $t")
+
+# benchmark
+SUITE[model][cases[4]] = @benchmarkable solve($prob_no_pv_no_jit, max_jumps=1001, alg=$alg)
+
+sol_no_pv_no_jit_discrete = nothing
+GC.gc()
 
 # ----------------------------------------
 #  BRKNP01
 # ----------------------------------------
 
+prob_pv_1_with_jit = embrake_pv_1(ζ=[-1e-8, 1e-7], Tsample=1e-4)
+alg = ASB07(δ=1e-8, max_order=1, static=true, dim=4, ngens=4)
+sol_pv_1_with_jit = solve(prob_pv_1_with_jit, max_jumps=1001, alg=alg)
+
+# verify that specification holds
+property = ρ(eₓ, sol_pv_1_with_jit) < x0
+push!(validation, Int(property))
+
+GC.gc()
+t = max_time(sol_pv_1_with_jit)
+push!(times, trunc(t, digits=4))
+println("maximum time that x < x0 , case $(cases[5]) : $t")
+
+# benchmark
+SUITE[model][cases[5]] = @benchmarkable solve($prob_pv_1_with_jit, max_jumps=1001, alg=$alg)
+
+prob_pv_1_with_jit = nothing
+GC.gc()
 
 # ----------------------------------------
 #  BRKNP01 (discrete-time)
 # ----------------------------------------
 
+alg = ASB07(δ=1e-8, max_order=1, static=true, dim=4, ngens=4, approx_model=NoBloating())
+sol_pv_1_with_jit_discrete = solve(prob_pv_1_with_jit, max_jumps=1001, alg=alg)
+
+# verify that specification holds
+property = ρ(eₓ, sol_pv_1_with_jit_discrete) < x0
+push!(validation, Int(property))
+
+GC.gc()
+t = max_time(sol_pv_1_with_jit_discrete)
+push!(times, trunc(t, digits=4))
+println("maximum time that x < x0 , case $(cases[6]) : $t")
+
+# benchmark
+SUITE[model][cases[6]] = @benchmarkable solve($prob_pv_1_with_jit, max_jumps=1001, alg=$alg)
+
+sol_pv_1_with_jit_discrete = nothing
+GC.gc()
 
 # ==============================================================================
 # Execute benchmarks and save benchmark results
@@ -79,21 +164,23 @@ for (i, c) in enumerate(cases)
 end
 
 for (i, c) in enumerate(cases)
-    print(io, "JuliaReach, $model, $c, $(validation[i]), $(runtimes[c]), $(time[i])\n")
+    print(io, "JuliaReach, $model, $c, $(validation[i]), $(runtimes[c]), $(times[i])\n")
 end
 
 # ==============================================================================
 # Plot
 # ==============================================================================
 
-sfpos = []
-sfneg = []
-times = []
-
-polys = [VPolygon([ [inf(times[i]), sfpos[i]],
-                  [inf(times[i]), -sfneg[i]],
-                  [sup(times[i]), sfpos[i]],
-                  [sup(times[i]), -sfneg[i]]]) for i in 1:length(sfpos)]
+polys = Vector{VPolygon{Float64, Vector{Float64}}}()
+for fp in sol_no_pv_no_jit
+    for (j, X) in enumerate(fp)
+        sfpos, sfneg = ρ(eₓ, X), ρ(-eₓ, X)
+        dt = tspan(fp, j)
+        ti, tf = inf(dt), sup(dt)
+        p = VPolygon([[ti, sfpos], [ti, -sfneg], [tf, sfpos], [tf, -sfneg]])
+        push!(polys, p)
+    end
+end
 
 fig = Plots.plot()
 
