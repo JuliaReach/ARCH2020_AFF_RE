@@ -19,20 +19,20 @@ validation = []
 prob_BLDF01 = building_BLDF01()
 
 # BLDF01 - BDS01
-sol_BLDF01_BDS01 = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.004, template=x25))
-property = ρ(x25, sol_BLDF01_BDS01) <= 0.0051
+sol_BLDF01 = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.004, template=x25))
+property = ρ(x25, sol_BLDF01) <= 0.0051
 push!(validation, Int(property))
 SUITE[model][cases[1]] = @benchmarkable solve($prob_BLDF01, T=20.0, alg=LGG09(δ=0.004, template=$x25))
 
 # BLDF01 - BDU01
-sol_BLDF01_BDS01 = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.004, template=x25))
-property = ρ(x25, sol_BLDF01_BDS01) <= 4e-3
+sol_BLDF01 = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.004, template=x25))
+property = ρ(x25, sol_BLDF01) <= 4e-3
 push!(validation, Int(property))
 SUITE[model][cases[2]] = @benchmarkable solve($prob_BLDF01, T=20.0, alg=LGG09(δ=0.004, template=$x25))
 
 # BLDF01 - BDU02
-sol_BLDF01_BDS01 = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.004, template=x25))
-property = ρ(x25, sol_BLDF01_BDS01(20.0)) <= -0.78e-3
+sol_BLDF01 = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.004, template=x25))
+property = ρ(x25, sol_BLDF01(20.0)) <= -0.78e-3
 push!(validation, Int(property))
 SUITE[model][cases[3]] = @benchmarkable solve($prob_BLDF01, T=20.0, alg=LGG09(δ=0.004, template=$x25))
 
@@ -41,20 +41,20 @@ SUITE[model][cases[3]] = @benchmarkable solve($prob_BLDF01, T=20.0, alg=LGG09(δ
 # ----------------------------------------
 
 # BLDF01 - BDS01
-sol_BLDF01_BDS01_d = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.01, template=x25, approx_model=NoBloating()))
-property = ρ(x25, sol_BLDF01_BDS01_d) <= 0.0051
+sol_BLDF01 = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.01, template=x25, approx_model=NoBloating()))
+property = ρ(x25, sol_BLDF01) <= 0.0051
 push!(validation, Int(property))
 SUITE[model][cases[4]] = @benchmarkable solve($prob_BLDF01, T=20.0, alg=LGG09(δ=0.01, template=$x25, approx_model=NoBloating()))
 
 # BLDF01 - BDU01
-sol_BLDF01_BDS01_d = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.01, template=x25, approx_model=NoBloating()))
-property = ρ(x25, sol_BLDF01_BDS01_d) <= 4e-3
+sol_BLDF01 = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.01, template=x25, approx_model=NoBloating()))
+property = ρ(x25, sol_BLDF01) <= 4e-3
 push!(validation, Int(property))
 SUITE[model][cases[5]] = @benchmarkable solve($prob_BLDF01, T=20.0, alg=LGG09(δ=0.01, template=$x25, approx_model=NoBloating()))
 
 # BLDF01 - BDU02
-sol_BLDF01_BDS01_d = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.01, template=x25, approx_model=NoBloating()))
-property = ρ(x25, sol_BLDF01_BDS01_d(20.0)) <= -0.78e-3
+sol_BLDF01 = solve(prob_BLDF01, T=20.0, alg=LGG09(δ=0.01, template=x25, approx_model=NoBloating()))
+property = ρ(x25, sol_BLDF01(20.0)) <= -0.78e-3
 push!(validation, Int(property))
 SUITE[model][cases[6]] = @benchmarkable solve($prob_BLDF01, T=20.0, alg=LGG09(δ=0.01, template=$x25, approx_model=NoBloating()))
 
@@ -64,20 +64,20 @@ SUITE[model][cases[6]] = @benchmarkable solve($prob_BLDF01, T=20.0, alg=LGG09(δ
 prob_BLDC01 = building_BLDC01()
 
 # BLDC01 - BDS01
-sol_BLDC01_BDS01 = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.006, template=x25e))
-property = ρ(x25e, sol_BLDC01_BDS01) <= 0.0051
+sol_BLDC01 = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.006, template=x25e))
+property = ρ(x25e, sol_BLDC01) <= 0.0051
 push!(validation, Int(property))
 SUITE[model][cases[7]] = @benchmarkable solve($prob_BLDC01, T=20.0, alg=LGG09(δ=0.006, template=$x25e))
 
 # BLDC01 - BDU01
-sol_BLDC01_BDS01 = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.006, template=x25e))
-property = ρ(x25e, sol_BLDC01_BDS01) <= 4e-3
+sol_BLDC01 = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.006, template=x25e))
+property = ρ(x25e, sol_BLDC01) <= 4e-3
 push!(validation, Int(property))
 SUITE[model][cases[8]] = @benchmarkable solve($prob_BLDC01, T=20.0, alg=LGG09(δ=0.006, template=$x25e))
 
 # BLDC01 - BDU02
-sol_BLDC01_BDS01 = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.006, template=x25e))
-property = ρ(x25e, sol_BLDC01_BDS01(20.0)) <= -0.78e-3
+sol_BLDC01 = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.006, template=x25e))
+property = ρ(x25e, sol_BLDC01(20.0)) <= -0.78e-3
 push!(validation, Int(property))
 SUITE[model][cases[9]] = @benchmarkable solve($prob_BLDC01, T=20.0, alg=LGG09(δ=0.006, template=$x25e))
 
@@ -86,24 +86,27 @@ SUITE[model][cases[9]] = @benchmarkable solve($prob_BLDC01, T=20.0, alg=LGG09(δ
 # ----------------------------------------
 
 # BLDC01 - BDS01
-sol_BLDC01_BDS01_d = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.01, template=x25e, approx_model=NoBloating()))
-property = ρ(x25e, sol_BLDC01_BDS01_d) <= 0.0051
+sol_BLDC01 = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.01, template=x25e, approx_model=NoBloating()))
+property = ρ(x25e, sol_BLDC01) <= 0.0051
 push!(validation, Int(property))
 SUITE[model][cases[10]] = @benchmarkable solve($prob_BLDC01, T=20.0, alg=LGG09(δ=0.01, template=$x25e, approx_model=NoBloating()))
 
 # BLDC01 - BDU01
-sol_BLDC01_BDS01_d = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.01, template=x25e, approx_model=NoBloating()))
-property = ρ(x25e, sol_BLDC01_BDS01_d) <= 4e-3
+sol_BLDC01 = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.01, template=x25e, approx_model=NoBloating()))
+property = ρ(x25e, sol_BLDC01) <= 4e-3
 push!(validation, Int(property))
 SUITE[model][cases[11]] = @benchmarkable solve($prob_BLDC01, T=20.0, alg=LGG09(δ=0.01, template=$x25e, approx_model=NoBloating()))
 
 # BLDC01 - BDU02
-sol_BLDC01_BDS01_d = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.01, template=x25e, approx_model=NoBloating()))
-property = ρ(x25e, sol_BLDC01_BDS01_d(20.0)) <= -0.78e-3
+sol_BLDC01 = solve(prob_BLDC01, T=20.0, alg=LGG09(δ=0.01, template=x25e, approx_model=NoBloating()))
+property = ρ(x25e, sol_BLDC01(20.0)) <= -0.78e-3
 push!(validation, Int(property))
 SUITE[model][cases[12]] = @benchmarkable solve($prob_BLDC01, T=20.0, alg=LGG09(δ=0.01, template=$x25e, approx_model=NoBloating()))
 
 
+sol_BLDF01 = nothing
+sol_BLDC01 = nothing
+GC.gc()
 
 # ==============================================================================
 # Execute benchmarks and save benchmark results
@@ -125,7 +128,7 @@ println("median time for each benchmark:\n", median(results))
 runtimes = Dict()
 for (i, c) in enumerate(cases)
     t = median(results[model][c]).time * 1e-9
-    runtimes[c] = round(t, digits=3)
+    runtimes[c] = round(t, digits=4)
 end
 
 for (i, c) in enumerate(cases)
@@ -135,9 +138,4 @@ end
 # ==============================================================================
 # Plot
 # ==============================================================================
-
 #
-sol_BLDF01_BDS01 = nothing
-sol_BLDF01_BDS01_d = nothing
-sol_BLDC01_BDS01 = nothing
-sol_BLDC01_BDS01_d = nothing
