@@ -91,5 +91,10 @@ function max_time(sol)
         end
     end
     idx = findfirst(x -> x > x0, sfpos)
-    sup(times[idx-1])
+
+    if isnothing(idx)
+        return tend(sol)
+    else
+        return sup(times[idx-1])
+    end
 end
