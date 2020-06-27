@@ -21,7 +21,11 @@ function main()
 
     # ISS benchmark
     println("###\nRunning building benchmark\n###")
-    include("models/ISS/ISS_benchmark.jl")
+    #include("models/ISS/ISS_benchmark.jl")
+
+    # ISS benchmark
+    println("###\nRunning Spacecraft benchmark\n###")
+    include("models/Spacecraft/Spacecraft_benchmark.jl")
 
     print(io, "\n")
     println("Finished running benchmarks.")
