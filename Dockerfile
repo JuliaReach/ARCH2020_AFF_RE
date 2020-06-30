@@ -1,5 +1,5 @@
 # official Julia runtime as a parent image
-FROM julia:1.4.1
+FROM julia:1.5.0-beta1.0
 
 # install external dependencies:
 # - make & C compiler  (for building CRlibm)
