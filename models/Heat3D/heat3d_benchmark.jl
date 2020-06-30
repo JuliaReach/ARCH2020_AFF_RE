@@ -21,44 +21,38 @@ include("heat3d.jl")
 Δ = 1e-4
 NSTEPS = 2_000
 recursive = Val(:false)
-idx = 1 # index for the case considered
+idx = 0 # index for the case considered
 
 # ----------------------------------------
 #  HEAT01 (discrete time)
 # ----------------------------------------
-A, Aᵀδ, Ω₀, ℓ = heat01(δ=0.02)
-
-# warm-up run
-out = Vector{Float64}(undef, NSTEPS)
-reach_homog_dir_LGG09_expv_pk2!(out, Ω₀, Aᵀδ, sparse(ℓ), NSTEPS, recursive, hermitian=true)
-out = nothing
-GC.gc()
-
-out = Vector{Float64}(undef, NSTEPS)
-results[model][cases[idx]] = @elapsed reach_homog_dir_LGG09_expv_pk2!(out, Ω₀, Aᵀδ,
-                        sparse(ℓ), NSTEPS, recursive, hermitian=true)
-max_out = maximum(out)
+idx += 1
+A, _, Ω₀, ℓ = heat01(δ=0.02)
+ivp = @ivp(x' = A * x, x ∈ Universe(size(A, 1)), x(0) ∈ Ω₀);
+sol = solve(ivp, T=40.0, alg=LGG09(δ=0.02, template=[ℓ], approx_model=NoBloating())) # warm-up run
+results[model][cases[idx]] = @elapsed sol = solve(ivp, T=40.0, alg=LGG09(δ=0.02, template=[ℓ], approx_model=NoBloating()))
+max_out = ρ(ℓ, sol)
 max_temp[cases[idx]] = max_out
-property = max_out ∈ Tmax[idx] .. Tmax[idx] + Δ
+property = max_out ∈ Tmax[1] .. Tmax[1] + Δ
 push!(validation, Int(property))
 
-out = nothing
+sol = nothing
 GC.gc()
 
 # ----------------------------------------
 #  HEAT02 (discrete time)
 # ----------------------------------------
 idx += 1
-A, Aᵀδ, Ω₀, ℓ = heat02(δ=0.02)
-out = Vector{Float64}(undef, NSTEPS)
-results[model][cases[idx]] = @elapsed reach_homog_dir_LGG09_expv_pk2!(out, Ω₀, Aᵀδ,
-                        sparse(ℓ), NSTEPS, recursive, m=50, tol=1e-8, hermitian=true)
-max_out = maximum(out)
+A, _, Ω₀, ℓ = heat02(δ=0.02)
+ivp = @ivp(x' = A * x, x ∈ Universe(size(A, 1)), x(0) ∈ Ω₀);
+sol = solve(ivp, T=40.0, alg=LGG09(δ=0.02, template=[ℓ], approx_model=NoBloating())) # warm-up run
+results[model][cases[idx]] = @elapsed sol = solve(ivp, T=40.0, alg=LGG09(δ=0.02, template=[ℓ], approx_model=NoBloating()))
+max_out = ρ(ℓ, sol)
 max_temp[cases[idx]] = max_out
-property = max_out ∈ Tmax[idx] .. Tmax[idx] + Δ
+property = max_out ∈ Tmax[2] .. Tmax[2] + Δ
 push!(validation, Int(property))
 
-out = nothing
+sol = nothing
 GC.gc()
 
 # ----------------------------------------
@@ -67,12 +61,17 @@ GC.gc()
 if TEST_LONG
     idx += 1
     A, Aᵀδ, Ω₀, ℓ = heat03(δ=0.02)
+
+    # warm-up run
+    out = Vector{Float64}(undef, 1)
+    reach_homog_dir_LGG09_expv_pk2!(out, Ω₀, Aᵀδ, sparse(ℓ), 1, recursive, m=94, tol=1e-8, hermitian=true)
+
     out = Vector{Float64}(undef, NSTEPS)
     results[model][cases[idx]] = @elapsed reach_homog_dir_LGG09_expv_pk2!(out, Ω₀, Aᵀδ,
                             sparse(ℓ), NSTEPS, recursive, m=94, tol=1e-8, hermitian=true)
     max_out = maximum(out)
     max_temp[cases[idx]] = max_out
-    property = max_out ∈ Tmax[idx] .. Tmax[idx] + Δ
+    property = max_out ∈ Tmax[3] .. Tmax[3] + Δ
     push!(validation, Int(property))
 
     out = nothing
@@ -90,7 +89,7 @@ if TEST_LONG
                             sparse(ℓ), NSTEPS, recursive, m=211, tol=1e-8, hermitian=true)
     max_out = maximum(out)
     max_temp[cases[idx]] = max_out
-    property = max_out ∈ Tmax[idx] .. Tmax[idx] + Δ
+    property = max_out ∈ Tmax[4] .. Tmax[4] + Δ
     push!(validation, Int(property))
 
     out = nothing
@@ -103,11 +102,11 @@ end
 idx += 1
 A, Aᵀδ, Ω₀, ℓ = heat01(δ=0.02)
 ivp = @ivp(x' = A * x, x ∈ Universe(size(A, 1)), x(0) ∈ Ω₀);
-sol = solve(ivp, T=20.0, alg=LGG09(δ=0.02, template=[ℓ])) # warm-up run
-results[model][cases[idx]] = @elapsed sol = solve(ivp, T=20.0, alg=LGG09(δ=0.02, template=[ℓ]))
+sol = solve(ivp, T=1.0, alg=LGG09(δ=0.02, template=[ℓ])) # warm-up run
+results[model][cases[idx]] = @elapsed sol = solve(ivp, T=40.0, alg=LGG09(δ=0.02, template=[ℓ]))
 max_out = ρ(ℓ, sol)
 max_temp[cases[idx]] = max_out
-property = Tmax[idx] ≤ max_out
+property = Tmax[1] ≤ max_out
 push!(validation, Int(property))
 
 sol = nothing
@@ -119,15 +118,14 @@ GC.gc()
 idx += 1
 A, Aᵀδ, Ω₀, ℓ = heat02(δ=0.02)
 ivp = @ivp(x' = A * x, x ∈ Universe(size(A, 1)), x(0) ∈ Ω₀)
-results[model][cases[idx]] = @elapsed sol = solve(ivp, T=20.0, alg=LGG09(δ=0.02, template=[ℓ]))
+results[model][cases[idx]] = @elapsed sol = solve(ivp, T=40.0, alg=LGG09(δ=0.02, template=[ℓ]))
 max_out = ρ(ℓ, sol)
 max_temp[cases[idx]] = max_out
-property = Tmax[idx] ≤ max_out
+property = Tmax[2] ≤ max_out
 push!(validation, Int(property))
 
 sol = nothing
 GC.gc()
-
 
 # ==============================================================================
 # Save benchmark results
