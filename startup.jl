@@ -6,6 +6,9 @@ import Pkg
 Pkg.activate(@__DIR__)
 Pkg.instantiate()
 
+const TEST_LONG = false # if true, the longer test suite is run; may take several hours
+                        # and requires least 16gb RAM
+
 function main()
     global io = open("runtimes.csv", "w")
 
