@@ -100,7 +100,7 @@ end
 #  HEAT01 (continuous time)
 # ----------------------------------------
 idx += 1
-A, Aᵀδ, Ω₀, ℓ = heat01(δ=0.02)
+A, _, Ω₀, ℓ = heat01(δ=0.02)
 ivp = @ivp(x' = A * x, x ∈ Universe(size(A, 1)), x(0) ∈ Ω₀);
 sol = solve(ivp, T=1.0, alg=LGG09(δ=0.02, template=[ℓ])) # warm-up run
 results[model][cases[idx]] = @elapsed sol = solve(ivp, T=40.0, alg=LGG09(δ=0.02, template=[ℓ]))
@@ -116,7 +116,7 @@ GC.gc()
 #  HEAT02 (continuous time)
 # ----------------------------------------
 idx += 1
-A, Aᵀδ, Ω₀, ℓ = heat02(δ=0.02)
+A, _, Ω₀, ℓ = heat02(δ=0.02)
 ivp = @ivp(x' = A * x, x ∈ Universe(size(A, 1)), x(0) ∈ Ω₀)
 results[model][cases[idx]] = @elapsed sol = solve(ivp, T=40.0, alg=LGG09(δ=0.02, template=[ℓ]))
 max_out = ρ(ℓ, sol)
