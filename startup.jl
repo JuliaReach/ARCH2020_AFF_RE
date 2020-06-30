@@ -11,6 +11,10 @@ function main()
 
     println("Running AFF benchmarks...")
 
+    # Heat 3D benchmark
+    println("###\nRunning Heat 3D benchmark\n###")
+    include("models/Heat3D/heat3d_benchmark.jl")
+
     # Electromechanic break benchmark
     println("###\nRunning electromechanic-break benchmark\n###")
     #include("models/EMBrake/embrake_benchmark.jl")
@@ -21,7 +25,7 @@ function main()
 
     # ISS benchmark
     println("###\nRunning building benchmark\n###")
-    include("models/ISS/ISS_benchmark.jl")
+    #include("models/ISS/ISS_benchmark.jl")
 
     print(io, "\n")
     println("Finished running benchmarks.")

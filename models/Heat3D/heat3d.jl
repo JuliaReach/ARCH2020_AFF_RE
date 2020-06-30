@@ -1,12 +1,12 @@
 using ReachabilityAnalysis, SparseArrays, ExponentialUtilities, JLD2
 using LazySets.Arrays: SingleEntryVector
-const RA = ReachabilityAnalysis
+using ReachabilityAnalysis: reach_homog_dir_LGG09_expv_pk2!
 
 # For xc we add +1 because Julia has 1based indexing in contrast to Python which is 0 based
 
 # HEAT01 5x5x5 grid
 function heat01(; δ=0.02) # step size
-    @load "HEAT01.jld2" A xind
+    @load joinpath(@__DIR__, "HEAT01.jld2") A xind
 
     n = size(A, 1)
     x0ind = xind.nzind
@@ -24,7 +24,7 @@ end
 
 # HEAT02 10x10x10 grid
 function heat02(; δ=0.02) # step size
-    @load "HEAT02.jld2" A xind
+    @load joinpath(@__DIR__, "HEAT02.jld2") A xind
 
     n = size(A, 1)
     x0ind = xind.nzind
@@ -42,7 +42,7 @@ end
 
 # HEAT03 20x20x20 grid
 function heat03(; δ=0.02) # step size
-    @load "HEAT03.jld2" A xind
+    @load joinpath(@__DIR__, "HEAT03.jld2") A xind
 
     n = size(A, 1)
     x0ind = xind.nzind
@@ -60,7 +60,7 @@ end
 
 # HEAT04 50x50x50 grid
 function heat04(; δ=0.02) # step size
-    @load "HEAT04.jld2" A xind
+    @load joinpath(@__DIR__, "HEAT04.jld2") A xind
 
     n = size(A, 1)
     x0ind = xind.nzind
