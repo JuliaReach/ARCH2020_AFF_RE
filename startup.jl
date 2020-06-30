@@ -18,18 +18,30 @@ function main()
     println("###\nRunning Heat 3D benchmark\n###")
     include("models/Heat3D/heat3d_benchmark.jl")
 
-    # Electromechanic break benchmark
-    println("###\nRunning electromechanic-break benchmark\n###")
-    #include("models/EMBrake/embrake_benchmark.jl")
+    # ISS benchmark
+    #println("###\nRunning ISS benchmark\n###")
+    #include("models/ISS/ISS.jl")
 
+    # Spacecraft benchmark
+    #println("###\nRunning spacecraft benchmark\n###")
+    #include("models/Spacecraft/Spacecraft_benchmark.jl")
+  
     # Building benchmark
-    println("###\nRunning building benchmark\n###")
+    #println("###\nRunning building benchmark\n###")
     #include("models/Building/building_benchmark.jl")
 
-    # ISS benchmark
-    println("###\nRunning building benchmark\n###")
-    #include("models/ISS/ISS_benchmark.jl")
+    # Platoon benchmark
+    #println("###\nRunning platoon benchmark\n###")
+    #include("models/Platon/Platoon_benchmark.jl")
 
+    # Gearbox break benchmark
+    #println("###\nRunning electromechanic-break benchmark\n###")
+    #include("models/Gearbox/gearbox_benchmark.jl")
+  
+    # Electromechanic break benchmark
+    #println("###\nRunning electromechanic-break benchmark\n###")
+    #include("models/EMBrake/embrake_benchmark.jl")
+  
     print(io, "\n")
     println("Finished running benchmarks.")
     close(io)
