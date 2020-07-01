@@ -189,12 +189,17 @@ function velocity_constraint(sol)
 end
 
 function target_avoidance(sol)
-    all_idx = findall(x -> x == 3, location.(sol)) # aborting
-    for idx in all_idx
-        verif = all(!(set(Projection(R, [x, y])) ⊆ target) for R in sol[idx])
-        !verif && return false
-    end
-    return true
+   all_idx = findall(x -> x == 3, location.(sol)) # aborting
+   for idx in all_idx
+
+       #Lazy:
+       # verif = all(is_intersection_empty(set(Projection(R, [x, y])), target) for R in sol[idx])
+
+       #Concrete if R is hyperrectangular
+       verif = all(is_intersection_empty(overapproximate(Projection(R, [x, y]), Hyperrectangle), target) for R in sol[idx])
+       !verif && return false
+   end
+   return true
 end
 
 function SR02_specification(sol)
