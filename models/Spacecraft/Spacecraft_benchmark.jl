@@ -141,7 +141,7 @@ SUITE[model][cases[6]] = @benchmarkable solve($prob_A02, alg=BOX(δ=0.1, approx_
 prob_A03 = spacecraft(abort_time=[120., 145.])
 
 sol_A03 = solve(prob_A03, alg=BOX(δ=0.04),
-                clustering_method=LazyClustering(3),
+                clustering_method=LazyClustering(4),
                 intersection_method=TemplateHullIntersection(boxdirs),
                 intersect_source_invariant=false,
                 intersect_source_invariant_method=TemplateHullIntersection(boxdirs),
@@ -149,7 +149,7 @@ sol_A03 = solve(prob_A03, alg=BOX(δ=0.04),
 property = SR02_specification(sol_A03)
 push!(validation, Int(property))
 SUITE[model][cases[7]] = @benchmarkable solve($prob_A03, alg=BOX(δ=0.04),
-              clustering_method=LazyClustering(3),
+              clustering_method=LazyClustering(4),
               intersection_method=TemplateHullIntersection($boxdirs),
               intersect_source_invariant=false,
               intersect_source_invariant_method=TemplateHullIntersection($boxdirs),
@@ -160,7 +160,7 @@ SUITE[model][cases[7]] = @benchmarkable solve($prob_A03, alg=BOX(δ=0.04),
 # ----------------------------------------
 
 sol_A03 = solve(prob_A03, alg=BOX(δ=0.1, approx_model=NoBloating()),
-             clustering_method=LazyClustering(3),
+             clustering_method=LazyClustering(4),
              intersection_method=TemplateHullIntersection(boxdirs),
              intersect_source_invariant=false,
              intersect_source_invariant_method=TemplateHullIntersection(boxdirs),
@@ -168,7 +168,7 @@ sol_A03 = solve(prob_A03, alg=BOX(δ=0.1, approx_model=NoBloating()),
 property = SR02_specification(sol_A03)
 push!(validation, Int(property))
 SUITE[model][cases[8]] = @benchmarkable solve($prob_A03, alg=BOX(δ=0.1, approx_model=NoBloating()),
-              clustering_method=LazyClustering(3),
+              clustering_method=LazyClustering(4),
               intersection_method=TemplateHullIntersection($boxdirs),
               intersect_source_invariant=false,
               intersect_source_invariant_method=TemplateHullIntersection($boxdirs),
@@ -182,7 +182,7 @@ SUITE[model][cases[8]] = @benchmarkable solve($prob_A03, alg=BOX(δ=0.1, approx_
 prob_A04 = spacecraft(abort_time=240.)
 
 sol_A04 = solve(prob_A04, alg=BOX(δ=0.04),
-              clustering_method=LazyClustering(3),
+              clustering_method=LazyClustering(16),
               intersection_method=TemplateHullIntersection(boxdirs),
               intersect_source_invariant=false,
               intersect_source_invariant_method=TemplateHullIntersection(boxdirs),
@@ -190,7 +190,7 @@ sol_A04 = solve(prob_A04, alg=BOX(δ=0.04),
 property = SR02_specification(sol_A04)
 push!(validation, Int(property))
 SUITE[model][cases[9]] = @benchmarkable solve($prob_A04, alg=BOX(δ=0.04),
-            clustering_method=LazyClustering(3),
+            clustering_method=LazyClustering(16),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             intersect_source_invariant_method=TemplateHullIntersection($boxdirs),
@@ -201,7 +201,7 @@ SUITE[model][cases[9]] = @benchmarkable solve($prob_A04, alg=BOX(δ=0.04),
 # ----------------------------------------
 
 sol_A04 = solve(prob_A04, alg=BOX(δ=0.1, approx_model=NoBloating()),
-           clustering_method=LazyClustering(3),
+           clustering_method=LazyClustering(16),
            intersection_method=TemplateHullIntersection(boxdirs),
            intersect_source_invariant=false,
            intersect_source_invariant_method=TemplateHullIntersection(boxdirs),
@@ -209,7 +209,7 @@ sol_A04 = solve(prob_A04, alg=BOX(δ=0.1, approx_model=NoBloating()),
 property = SR02_specification(sol_A04)
 push!(validation, Int(property))
 SUITE[model][cases[10]] = @benchmarkable solve($prob_A04, alg=BOX(δ=0.1, approx_model=NoBloating()),
-            clustering_method=LazyClustering(3),
+            clustering_method=LazyClustering(16),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             intersect_source_invariant_method=TemplateHullIntersection($boxdirs),
@@ -223,7 +223,7 @@ SUITE[model][cases[10]] = @benchmarkable solve($prob_A04, alg=BOX(δ=0.1, approx
 prob_A05 = spacecraft(abort_time=[235., 240.])
 
 sol_A05 = solve(prob_A05, alg=BOX(δ=0.04),
-              clustering_method=LazyClustering(3),
+              clustering_method=LazyClustering(13),
               intersection_method=TemplateHullIntersection(boxdirs),
               intersect_source_invariant=false,
               intersect_source_invariant_method=TemplateHullIntersection(boxdirs),
@@ -231,7 +231,7 @@ sol_A05 = solve(prob_A05, alg=BOX(δ=0.04),
 property = SR02_specification(sol_A05)
 push!(validation, Int(property))
 SUITE[model][cases[11]] = @benchmarkable solve($prob_A05, alg=BOX(δ=0.04),
-            clustering_method=LazyClustering(3),
+            clustering_method=LazyClustering(13),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             intersect_source_invariant_method=TemplateHullIntersection($boxdirs),
@@ -242,7 +242,7 @@ SUITE[model][cases[11]] = @benchmarkable solve($prob_A05, alg=BOX(δ=0.04),
 # ----------------------------------------
 
 sol_A05 = solve(prob_A05, alg=BOX(δ=0.1, approx_model=NoBloating()),
-           clustering_method=LazyClustering(3),
+           clustering_method=LazyClustering(13),
            intersection_method=TemplateHullIntersection(boxdirs),
            intersect_source_invariant=false,
            intersect_source_invariant_method=TemplateHullIntersection(boxdirs),
@@ -250,7 +250,7 @@ sol_A05 = solve(prob_A05, alg=BOX(δ=0.1, approx_model=NoBloating()),
 property = SR02_specification(sol_A05)
 push!(validation, Int(property))
 SUITE[model][cases[12]] = @benchmarkable solve($prob_A05, alg=BOX(δ=0.1, approx_model=NoBloating()),
-            clustering_method=LazyClustering(3),
+            clustering_method=LazyClustering(13),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             intersect_source_invariant_method=TemplateHullIntersection($boxdirs),
@@ -264,7 +264,7 @@ SUITE[model][cases[12]] = @benchmarkable solve($prob_A05, alg=BOX(δ=0.1, approx
 prob_A06 = spacecraft(abort_time=[230., 240.])
 
 sol_A06 = solve(prob_A06, alg=BOX(δ=0.04),
-              clustering_method=LazyClustering(),
+              clustering_method=LazyClustering(16),
               intersection_method=TemplateHullIntersection(boxdirs),
               intersect_source_invariant=false,
               intersect_source_invariant_method=TemplateHullIntersection(boxdirs),
@@ -272,7 +272,7 @@ sol_A06 = solve(prob_A06, alg=BOX(δ=0.04),
 property = SR02_specification(sol_A06)
 push!(validation, Int(property))
 SUITE[model][cases[13]] = @benchmarkable solve($prob_A06, alg=BOX(δ=0.04),
-            clustering_method=LazyClustering(),
+            clustering_method=LazyClustering(16),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             intersect_source_invariant_method=TemplateHullIntersection($boxdirs),
@@ -283,7 +283,7 @@ SUITE[model][cases[13]] = @benchmarkable solve($prob_A06, alg=BOX(δ=0.04),
 # ----------------------------------------
 
 sol_A06 = solve(prob_A06, alg=BOX(δ=0.1, approx_model=NoBloating()),
-           clustering_method=LazyClustering(),
+           clustering_method=LazyClustering(16),
            intersection_method=TemplateHullIntersection(boxdirs),
            intersect_source_invariant=false,
            intersect_source_invariant_method=TemplateHullIntersection(boxdirs),
@@ -291,7 +291,7 @@ sol_A06 = solve(prob_A06, alg=BOX(δ=0.1, approx_model=NoBloating()),
 property = SR02_specification(sol_A06)
 push!(validation, Int(property))
 SUITE[model][cases[14]] = @benchmarkable solve($prob_A06, alg=BOX(δ=0.1, approx_model=NoBloating()),
-            clustering_method=LazyClustering(),
+            clustering_method=LazyClustering(16),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             intersect_source_invariant_method=TemplateHullIntersection($boxdirs),
@@ -305,14 +305,14 @@ SUITE[model][cases[14]] = @benchmarkable solve($prob_A06, alg=BOX(δ=0.1, approx
 prob_A07 = spacecraft(abort_time=[50., 150.])
 
 sol_A07 = solve(prob_A07, alg=BOX(δ=0.04),
-              clustering_method=LazyClustering(),
+              clustering_method=LazyClustering(50),
               intersection_method=TemplateHullIntersection(boxdirs),
               intersect_source_invariant=false,
               tspan = (0.0 .. 300.0))
 property = SR02_specification(sol_A07)
 push!(validation, Int(property))
 SUITE[model][cases[15]] = @benchmarkable solve($prob_A07, alg=BOX(δ=0.04),
-            clustering_method=LazyClustering(),
+            clustering_method=LazyClustering(50),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             tspan = (0.0 .. 300.0))
@@ -322,14 +322,14 @@ SUITE[model][cases[15]] = @benchmarkable solve($prob_A07, alg=BOX(δ=0.04),
 # ----------------------------------------
 
 sol_A07 = solve(prob_A07, alg=BOX(δ=0.1, approx_model=NoBloating()),
-           clustering_method=LazyClustering(),
+           clustering_method=LazyClustering(50),
            intersection_method=TemplateHullIntersection(boxdirs),
            intersect_source_invariant=false,
            tspan = (0.0 .. 300.0))
 property = SR02_specification(sol_A07)
 push!(validation, Int(property))
 SUITE[model][cases[16]] = @benchmarkable solve($prob_A07, alg=BOX(δ=0.1, approx_model=NoBloating()),
-            clustering_method=LazyClustering(),
+            clustering_method=LazyClustering(50),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             tspan = (0.0 .. 300.0))
@@ -342,14 +342,14 @@ SUITE[model][cases[16]] = @benchmarkable solve($prob_A07, alg=BOX(δ=0.1, approx
 prob_A08 = spacecraft(abort_time=[0., 240.])
 
 sol_A08 = solve(prob_A08, alg=BOX(δ=0.04),
-                clustering_method=LazyClustering(),
+                clustering_method=LazyClustering(800),
                 intersection_method=TemplateHullIntersection(boxdirs),
                 intersect_source_invariant=false,
                 tspan = (0.0 .. 300.0))
 property = SR02_specification(sol_A08)
 push!(validation, Int(property))
 SUITE[model][cases[17]] = @benchmarkable solve($prob_A08, alg=BOX(δ=0.04),
-            clustering_method=LazyClustering(),
+            clustering_method=LazyClustering(800),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             tspan = (0.0 .. 300.0))
@@ -359,14 +359,14 @@ SUITE[model][cases[17]] = @benchmarkable solve($prob_A08, alg=BOX(δ=0.04),
 # ----------------------------------------
 
 sol_A08 = solve(prob_A08, alg=BOX(δ=0.1, approx_model=NoBloating()),
-                clustering_method=LazyClustering(),
+                clustering_method=LazyClustering(900),
                 intersection_method=TemplateHullIntersection(boxdirs),
                 intersect_source_invariant=false,
                 tspan = (0.0 .. 300.0))
 property = SR02_specification(sol_A08)
 push!(validation, Int(property))
 SUITE[model][cases[18]] = @benchmarkable solve($prob_A08, alg=BOX(δ=0.1, approx_model=NoBloating()),
-            clustering_method=LazyClustering(),
+            clustering_method=LazyClustering(900),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             tspan = (0.0 .. 300.0))
@@ -379,14 +379,14 @@ SUITE[model][cases[18]] = @benchmarkable solve($prob_A08, alg=BOX(δ=0.1, approx
 prob_U01 = spacecraft(abort_time=260.)
 
 sol_U01 = solve(prob_U01, alg=BOX(δ=0.04),
-                clustering_method=LazyClustering(),
+                clustering_method=LazyClustering(16),
                 intersection_method=TemplateHullIntersection(boxdirs),
                 intersect_source_invariant=false,
                 tspan = (0.0 .. 300.0))
 property = SR02_specification(sol_U01)
 push!(validation, Int(property))
 SUITE[model][cases[19]] = @benchmarkable solve($prob_U01, alg=BOX(δ=0.04),
-            clustering_method=LazyClustering(),
+            clustering_method=LazyClustering(16),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             tspan = (0.0 .. 300.0))
@@ -396,14 +396,14 @@ SUITE[model][cases[19]] = @benchmarkable solve($prob_U01, alg=BOX(δ=0.04),
 # ----------------------------------------
 
 sol_U01 = solve(prob_U01, alg=BOX(δ=0.1, approx_model=NoBloating()),
-                clustering_method=LazyClustering(),
+                clustering_method=LazyClustering(16),
                 intersection_method=TemplateHullIntersection(boxdirs),
                 intersect_source_invariant=false,
                 tspan = (0.0 .. 300.0))
 property = SR02_specification(sol_U01)
 push!(validation, Int(property))
 SUITE[model][cases[20]] = @benchmarkable solve($prob_U01, alg=BOX(δ=0.1, approx_model=NoBloating()),
-            clustering_method=LazyClustering(),
+            clustering_method=LazyClustering(16),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             tspan = (0.0 .. 300.0))
@@ -416,14 +416,14 @@ SUITE[model][cases[20]] = @benchmarkable solve($prob_U01, alg=BOX(δ=0.1, approx
 prob_U02 = spacecraft(abort_time=[0., 260.])
 
 sol_U02 = solve(prob_U02, alg=BOX(δ=0.04),
-                clustering_method=LazyClustering(),
+                clustering_method=LazyClustering(16),
                 intersection_method=TemplateHullIntersection(boxdirs),
                 intersect_source_invariant=false,
                 tspan = (0.0 .. 300.0))
 property = SR02_specification(sol_U02)
 push!(validation, Int(property))
 SUITE[model][cases[21]] = @benchmarkable solve($prob_U02, alg=BOX(δ=0.04),
-            clustering_method=LazyClustering(),
+            clustering_method=LazyClustering(16),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             tspan = (0.0 .. 300.0))
@@ -433,7 +433,7 @@ SUITE[model][cases[21]] = @benchmarkable solve($prob_U02, alg=BOX(δ=0.04),
 # ----------------------------------------
 
 sol_U02 = solve(prob_U02, alg=BOX(δ=0.1, approx_model=NoBloating()),
-                clustering_method=LazyClustering(),
+                clustering_method=LazyClustering(16),
                 intersection_method=TemplateHullIntersection(boxdirs),
                 intersect_source_invariant=false,
                 intersect_source_invariant_method=TemplateHullIntersection(boxdirs),
@@ -441,7 +441,7 @@ sol_U02 = solve(prob_U02, alg=BOX(δ=0.1, approx_model=NoBloating()),
 property = SR02_specification(sol_U02)
 push!(validation, Int(property))
 SUITE[model][cases[22]] = @benchmarkable solve($prob_U02, alg=BOX(δ=0.1, approx_model=NoBloating()),
-            clustering_method=LazyClustering(),
+            clustering_method=LazyClustering(16),
             intersection_method=TemplateHullIntersection($boxdirs),
             intersect_source_invariant=false,
             tspan = (0.0 .. 300.0))
@@ -491,4 +491,75 @@ end
 # ==============================================================================
 # Plot
 # ==============================================================================
-#
+
+function plot_SRNA01()
+    prob_NA01 = spacecraft(abort_time=-1.)
+    sol = solve(prob_NA01, alg=BOX(δ=0.04),
+                     clustering_method=LazyClustering(),
+                     intersection_method=TemplateHullIntersection(boxdirs),
+                     intersect_source_invariant=false,
+                     tspan = (0.0 .. 300.0))
+
+    idx_approaching = findall(x -> x == 1, location.(sol))
+    idx_attempt = findall(x -> x == 2, location.(sol))
+    idx_aborting = findall(x -> x == 3, location.(sol))
+
+    fig = plot(legend=:bottomright, tickfont=font(30, "Times"), guidefontsize=45,
+               xlab=L"x", ylab=L"y",
+               xtick=[-800, -600, -400, -200.0, 0.0], ytick=[-400, -300, -200, -100, 0.],
+               xlims=(-1000.0, 0.0), ylims=(-450.0, 0.0),
+               bottom_margin=6mm, left_margin=2mm, right_margin=4mm, top_margin=3mm,
+               size=(1000, 1000))
+
+    for idx in idx_approaching
+        plot!(fig, sol[idx], vars=(1, 2), lw=0.0, color=:lightgreen, alpha=1.)
+    end
+    for idx in idx_attempt
+        plot!(fig, sol[idx], vars=(1, 2), lw=0.0, color=:red, alpha=1.)
+    end
+    for idx in idx_aborting
+        plot!(fig, sol[idx], vars=(1, 2), lw=0.0, color=:cyan, alpha=1.)
+    end
+    fig
+end
+
+fig = plot_SRNA01()
+savefig(fig, "ARCH-COMP20-JuliaReach-Spacecraft-SRNA01.png")
+
+# ----
+
+function plot_SRA01()
+    prob_A01 = spacecraft(abort_time=120.)
+    @time sol = solve(prob_A01, alg=BOX(δ=0.04),
+                      clustering_method=LazyClustering(3),
+                      intersection_method=TemplateHullIntersection(boxdirs),
+                      intersect_source_invariant=false,
+                      tspan = (0.0 .. 300.0))
+
+    idx_approaching = findall(x -> x == 1, location.(sol))
+    idx_attempt = findall(x -> x == 2, location.(sol))
+    idx_aborting = findall(x -> x == 3, location.(sol))
+
+    fig = plot(legend=:bottomright, tickfont=font(30, "Times"), guidefontsize=45,
+               xlab=L"x", ylab=L"y", lw=0.0,
+               xtick=[-750, -500, -250, 0, 250.], ytick=[-400, -300, -200, -100, 0.],
+               xlims=(-1000.0, 400.0), ylims=(-450.0, 0.0),
+               bottom_margin=6mm, left_margin=2mm, right_margin=4mm, top_margin=3mm,
+               size=(1000, 1000))
+
+    for idx in idx_approaching
+        plot!(fig, sol[idx], vars=(1, 2), lw=0.0, color=:lightgreen, alpha=1.)
+    end
+    for idx in idx_attempt
+        plot!(fig, sol[idx], vars=(1, 2), lw=0.0, color=:red, alpha=1.)
+    end
+    for idx in idx_aborting
+        plot!(fig, sol[idx], vars=(1, 2), lw=0.0, color=:cyan, alpha=1.)
+    end
+    fig
+end
+
+fig = plot_SRA01()
+savefig(fig, "ARCH-COMP20-JuliaReach-Spacecraft-SRA01.png")
+
+GC.gc()
