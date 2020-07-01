@@ -92,12 +92,9 @@ property = (-ρ(-C3_ext, sol_ISSC01) >= -0.00017) && (ρ(C3_ext, sol_ISSC01) <= 
 push!(validation, Int(property))
 SUITE[model][cases[8]] = @benchmarkable solve($prob_ISSC01, T=20.0, alg=LGG09(δ=0.01, template=$dirs, sparse=true, cache=true))
 
-
-
 sol_ISSF01 = nothing
 sol_ISSC01 = nothing
 GC.gc()
-
 
 # ==============================================================================
 # Execute benchmarks and save benchmark results
@@ -129,4 +126,50 @@ end
 # ==============================================================================
 # Plot
 # ==============================================================================
-#
+
+function plot_ISSF01()
+    prob_ISSF01 = ISSF01()
+    dirs = CustomDirections([C3, -C3])
+    sol = solve(prob_ISSF01, T=20.0, alg=LGG09(δ=6e-4, template=dirs, sparse=true, cache=false))
+    out = [Interval(tspan(sol[i])) × Interval(-ρ(-C3, sol[i]), ρ(C3, sol[i])) for i in 1:10:length(sol)]
+end
+sol = plot_ISSF01()
+
+fig = Plots.plot()
+Plots.plot!(fig, sol, linecolor=:blue, color=:blue, alpha=0.8,
+    tickfont=font(30, "Times"), guidefontsize=45,
+    xlab=L"t",
+    ylab=L"y_{3}",
+    xtick=[0, 5, 10, 15, 20.], ytick=[-0.00075, -0.0005, -0.00025, 0, 0.00025, 0.0005, 0.00075],
+    xlims=(0., 20.), ylims=(-0.00075, 0.00075),
+    bottom_margin=6mm, left_margin=2mm, right_margin=4mm, top_margin=3mm,
+    size=(1000, 1000))
+savefig("ARCH-COMP20-JuliaReach-ISS-ISSF01.pdf")
+
+sol = nothing
+GC.gc()
+
+# -------------
+
+function plot_ISSC01()
+    prob_ISSC01 = ISSC01()
+    dirs = CustomDirections([C3_ext, -C3_ext])
+    sol = solve(prob_ISSC01, T=20.0, alg=LGG09(δ=0.01, template=dirs, sparse=true, cache=false))
+    out = [Interval(tspan(sol[i])) × Interval(-ρ(-C3_ext, sol[i]), ρ(C3_ext, sol[i])) for i in 1:1:length(sol)]
+end
+sol = plot_ISSC01()
+
+fig = Plots.plot()
+Plots.plot!(fig, sol, linecolor=:blue, color=:blue, alpha=0.8, lw=1.0,
+    tickfont=font(30, "Times"), guidefontsize=45,
+    xlab=L"t",
+    ylab=L"y_{3}",
+    xtick=[0, 5, 10, 15, 20.], ytick=[-0.0002, -0.0001, 0.0, 0.0001, 0.0002],
+    xlims=(0., 20.), ylims=(-0.0002, 0.0002),
+    bottom_margin=6mm, left_margin=2mm, right_margin=4mm, top_margin=3mm,
+    size=(1000, 1000))
+
+savefig("ARCH-COMP20-JuliaReach-ISS-ISSC01.pdf")
+
+sol = nothing
+GC.gc()

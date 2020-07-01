@@ -174,7 +174,7 @@ Plots.plot!(fig, sol, linecolor=:blue, color=:blue, alpha=0.8,
     bottom_margin=6mm, left_margin=2mm, right_margin=4mm, top_margin=3mm,
     size=(1000, 1000))
 
-savefig("ARCH-COMP20-JuliaReach-Heat3D.png")
+savefig("ARCH-COMP20-JuliaReach-Heat3D.pdf")
 
 sol = nothing
 GC.gc()
