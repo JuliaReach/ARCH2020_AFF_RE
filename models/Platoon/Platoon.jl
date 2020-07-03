@@ -22,7 +22,6 @@ function platoon_connected(; deterministic_switching::Bool=true,
         invariant = HalfSpace(sparsevec([n], [1.], n), c1) # t <= c1
     else
         invariant = Universe(n)
-        # ? HalfSpace(sparsevec([n], [1.], n), tb) # t <= tb
     end
 
     # acceleration of the lead vehicle + time
@@ -51,7 +50,7 @@ function platoon_disconnected(; deterministic_switching::Bool=true,
     if deterministic_switching
         invariant = HalfSpace(sparsevec([n], [1.], n), c2) # t <= c2
     else
-        invariant = Universe(n) # t is not constrained
+        invariant = Universe(n)
     end
 
     # acceleration of the lead vehicle + time
@@ -60,86 +59,6 @@ function platoon_disconnected(; deterministic_switching::Bool=true,
     c = [0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0]
     @system(x' = Ax + Bu + c, x ∈ invariant, u ∈ U)
 end
-
-#=
-function platoon_continuous()
-
-    m1 = platoon_connected()
-    m2 = platoon_disconnected();
-
-    # remove the time variable
-    Ac = state_matrix(m1)[1:9, 1:9]
-    An = state_matrix(m2)[1:9, 1:9]
-    Aint = IntervalMatrix(An + interval(0.0, 1.0) .* (Ac - An));
-
-    # acceleration of the lead vehicle + time
-    B = sparse([2], [1], [1.0], 9, 1)
-    U = Hyperrectangle(low=[-9.], high=[1.])
-    invariant = Universe(9)
-
-    @system(x' = Aint*x + B*u, x ∈ invariant, u ∈ U)
-end
-
-function platoon_continuous_split()
-
-    m1 = platoon_connected()
-    m2 = platoon_disconnected()
-
-    # remove the time variable
-    Ac = state_matrix(m1)[1:9, 1:9]
-    An = state_matrix(m2)[1:9, 1:9]
-
-    B = sparse([2], [1], [1.0], 9, 1)
-    U = Hyperrectangle(low=[-9.], high=[1.])
-    invariant = Universe(9)
-
-    Svec = []
-    for α in [interval(0.0, 0.5), interval(0.5, 1.0)]
-        Aint = IntervalMatrix(An + α .* (Ac - An));
-        Sx = @system(x' = Aint*x + B*u, x ∈ invariant, u ∈ U)
-        push!(Svec, Sx)
-    end
-    return Svec
-end
-
-function platoon_continuous_split_largest()
-
-    m1 = platoon_connected()
-    m2 = platoon_disconnected()
-
-    # remove the time variable
-    Ac = state_matrix(m1)[1:9, 1:9]
-    An = state_matrix(m2)[1:9, 1:9]
-
-    B = sparse([2], [1], [1.0], 9, 1)
-    U = Hyperrectangle(low=[-9.], high=[1.])
-    invariant = Universe(9)
-
-    # difference matrix
-    X = Ac - An
-    Xint = rand(IntervalMatrix, size(X)...)
-    for i in 1:size(X, 1)
-        for j in 1:size(X, 2)
-            Xint[i, j] = interval(0, 1) * X[i, j]
-        end
-    end
-
-    Dvec = []
-    for α in mince(interval(0.0, 1.0), 5)
-        Xint_α = copy(Xint)
-        Xint_α[6, 2] = X[6, 2] * α
-        push!(Dvec, Xint_α)
-    end
-
-    Svec = []
-    for Di in Dvec
-        Aint = An + Di
-        Sx = @system(x' = Aint*x + B*u, x ∈ invariant, u ∈ U)
-        push!(Svec, Sx)
-    end
-    return Svec
-end
-=#
 
 function platoon(; deterministic_switching::Bool=true,
                    c1=5.0,  # clock constraints
@@ -192,25 +111,8 @@ function platoon(; deterministic_switching::Bool=true,
     return IVP(H, initial_condition)
 end
 
-#=
-function solve_platoon_continuous_split(δ, max_order)
-    X0 = BallInf(zeros(9), 0.0)
-    Svec = platoon_continuous_split_largest()
-    alg = ASB07(δ=δ, max_order=max_order, approx_model=CorrectionHull(order=10))
-    sol = []
-    for Si in Svec
-        ivpx = IVP(Si, X0)
-        si = solve(IVP(Si, X0), T=20.0, alg=alg)
-        #ivpx = @ivp(Si, x(0) ∈ X0)
-        #si = solve(@ivp(Si, x(0) ∈ X0), T=20.0, alg=alg)
-        push!(sol, si)
-    end
-    MixedFlowpipe([sol[i].F for i in 1:length(sol)])
-end
-=#
-
 function dmin_specification(sol, dmin)
-    return (-ρ(sparsevec([1], [-1.0], 10), sol)>dmin) &&
-           (-ρ(sparsevec([4], [-1.0], 10), sol)>dmin) &&
-           (-ρ(sparsevec([7], [-1.0], 10), sol)>dmin)
+    return (-ρ(sparsevec([1], [-1.0], 10), sol) > dmin) &&
+           (-ρ(sparsevec([4], [-1.0], 10), sol) > dmin) &&
+           (-ρ(sparsevec([7], [-1.0], 10), sol) > dmin)
 end

@@ -24,7 +24,7 @@ function main()
 
     # Spacecraft benchmark
     #println("###\nRunning spacecraft benchmark\n###")
-    include("models/Spacecraft/Spacecraft_benchmark.jl")
+    #include("models/Spacecraft/Spacecraft_benchmark.jl")
 
     # Building benchmark
     #println("###\nRunning building benchmark\n###")
@@ -32,7 +32,7 @@ function main()
 
     # Platoon benchmark
     #println("###\nRunning platoon benchmark\n###")
-    #include("models/Platon/Platoon_benchmark.jl")
+    include("models/Platoon/Platoon_benchmark.jl")
 
     # Gearbox break benchmark
     #println("###\nRunning electromechanic-break benchmark\n###")

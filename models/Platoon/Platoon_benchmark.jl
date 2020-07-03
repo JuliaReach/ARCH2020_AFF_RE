@@ -3,20 +3,19 @@ using BenchmarkTools: minimum, median
 
 SUITE = BenchmarkGroup()
 model = "PLATOONING"
-cases = ["PLAD01-BND42", "PLAD01-BND42-discrete"]
+cases = ["PLAD01-BND42", "PLAD01-BND42-discrete",
+         "PLAD01-BND30", "PLAD01-BND30-discrete"]
 #cases =
 #["PLAA01-BND50", "PLAA01-BND50-discrete", "PLAA01-BND42", "PLAA01-BND42-discrete",
-#"PLAD01-BND42", "PLAD01-BND42-discrete", "PLAD01-BND30", "PLAD01-BND30-discrete",
 #"PLAN01-UNB50", "PLAN01-UNB50-discrete"]
-
 
 SUITE[model] = BenchmarkGroup()
 
 include("Platoon.jl")
 validation = []
 
-boxdirs = BoxDirections{Float64, Vector{Float64}}(10)
-octdirs = CustomDirections([Vector(vi) for vi in OctDirections(10)]);
+const boxdirs = BoxDirections{Float64, Vector{Float64}}(10)
+const octdirs = CustomDirections([Vector(vi) for vi in OctDirections(10)])
 
 # ----------------------------------------
 #  PLAD01-BND42 (dense time)
@@ -45,16 +44,16 @@ sol_PLAD01_BND42_d = solve(prob_PLAD01_BND42,
                            alg=BOX(δ=0.1, approx_model=NoBloating()),
                            max_jumps=10_000,
                            clustering_method=BoxClustering(1, [3,1,1,1,1,1,1,1,1,1]),
-                           intersection_method=TemplateHullIntersection(octdirs),
+                           intersection_method=TemplateHullIntersection(boxdirs),
                            intersect_source_invariant=false,
                            tspan = (0.0 .. 20.0))
 property = dmin_specification(sol_PLAD01_BND42_d, -42.0)
 push!(validation, Int(property))
-SUITE[model][cases[2]] = @benchmarkable olve($prob_PLAD01_BND42,
+SUITE[model][cases[2]] = @benchmarkable solve($prob_PLAD01_BND42,
                                alg=BOX(δ=0.1, approx_model=NoBloating()),
                                max_jumps=10_000,
                                clustering_method=BoxClustering(1, [3,1,1,1,1,1,1,1,1,1]),
-                               intersection_method=TemplateHullIntersection($octdirs),
+                               intersection_method=TemplateHullIntersection($boxdirs),
                                intersect_source_invariant=false,
                                tspan = (0.0 .. 20.0))
 
