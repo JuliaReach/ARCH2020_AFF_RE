@@ -5,9 +5,6 @@ SUITE = BenchmarkGroup()
 model = "PLATOONING"
 cases = ["PLAD01-BND42", "PLAD01-BND42-discrete",
          "PLAD01-BND30", "PLAD01-BND30-discrete"]
-#cases =
-#["PLAA01-BND50", "PLAA01-BND50-discrete", "PLAA01-BND42", "PLAA01-BND42-discrete",
-#"PLAN01-UNB50", "PLAN01-UNB50-discrete"]
 
 SUITE[model] = BenchmarkGroup()
 
@@ -22,14 +19,14 @@ const octdirs = CustomDirections([Vector(vi) for vi in OctDirections(10)])
 # ----------------------------------------
 
 prob_PLAD01_BND42 = platoon(; deterministic_switching=true)
-sol_PLAD01_BND42 = solve(prob_PLAD01_BND42, alg=BOX(δ=0.01), max_jumps=10_000,
+sol_PLAD01_BND42 = solve(prob_PLAD01_BND42, alg=BOX(δ=0.01),
                          clustering_method=BoxClustering(1),
                          intersection_method=TemplateHullIntersection(boxdirs),
                          intersect_source_invariant=false,
                          tspan = (0.0 .. 20.0))
 property = dmin_specification(sol_PLAD01_BND42, -42.0)
 push!(validation, Int(property))
-SUITE[model][cases[1]] = @benchmarkable solve($prob_PLAD01_BND42, alg=BOX(δ=0.01), max_jumps=10_000,
+SUITE[model][cases[1]] = @benchmarkable solve($prob_PLAD01_BND42, alg=BOX(δ=0.01),
                                clustering_method=BoxClustering(1),
                                intersection_method=TemplateHullIntersection($boxdirs),
                                intersect_source_invariant=false,
@@ -42,7 +39,6 @@ SUITE[model][cases[1]] = @benchmarkable solve($prob_PLAD01_BND42, alg=BOX(δ=0.0
 prob_PLAD01_BND42 = platoon(; deterministic_switching=true)
 sol_PLAD01_BND42_d = solve(prob_PLAD01_BND42,
                            alg=BOX(δ=0.1, approx_model=NoBloating()),
-                           max_jumps=10_000,
                            clustering_method=BoxClustering(1, [3,1,1,1,1,1,1,1,1,1]),
                            intersection_method=TemplateHullIntersection(boxdirs),
                            intersect_source_invariant=false,
@@ -51,75 +47,54 @@ property = dmin_specification(sol_PLAD01_BND42_d, -42.0)
 push!(validation, Int(property))
 SUITE[model][cases[2]] = @benchmarkable solve($prob_PLAD01_BND42,
                                alg=BOX(δ=0.1, approx_model=NoBloating()),
-                               max_jumps=10_000,
                                clustering_method=BoxClustering(1, [3,1,1,1,1,1,1,1,1,1]),
                                intersection_method=TemplateHullIntersection($boxdirs),
                                intersect_source_invariant=false,
                                tspan = (0.0 .. 20.0))
 
-#=
-
-# ----------------------------------------
-#  PLAA01-BND50 (dense time)
-# ----------------------------------------
-
-sol_PLAA01_BND50 = solve_platoon_continuous_split(0.01, 1200)
-
-property = dmin_specification(sol_PLAA01_BND50, -50.0)
-push!(validation, Int(property))
-SUITE[model][cases[1]] = @benchmarkable solve_platoon_continuous_split(0.01, 1200)
-
-# ----------------------------------------
-#  PLAA01-BND50 (discrete time)
-# ----------------------------------------
-
-sol_PLAA01_BND50_d = solve_platoon_continuous_split(0.1, 400)
-
-property = dmin_specification(sol_PLAA01_BND50_d, -50.0)
-push!(validation, Int(property))
-SUITE[model][cases[2]] = @benchmarkable solve_platoon_continuous_split(0.1, 400)
-
-# ----------------------------------------
-#  PLAA01-BND42 (dense time)
-# ----------------------------------------
-
-sol_PLAA01_BND42 = solve_platoon_continuous_split(0.01, 400)
-
-property = dmin_specification(sol_PLAA01_BND42, -42.0)
-push!(validation, Int(property))
-SUITE[model][cases[3]] = @benchmarkable solve_platoon_continuous_split(0.01, 400)
-
-# ----------------------------------------
-#  PLAA01-BND42 (discrete time)
-# ----------------------------------------
-
-sol_PLAA01_BND42_d = solve_platoon_continuous_split(0.1, 1100)
-
-property = dmin_specification(sol_PLAA01_BND42_d, -42.0)
-push!(validation, Int(property))
-SUITE[model][cases[4]] = @benchmarkable solve_platoon_continuous_split(0.1, 1100)
-
 # ----------------------------------------
 #  PLAD01-BND30 (dense time)
 # ----------------------------------------
+prob_PLAD01_BND30 = platoon(; deterministic_switching=true)
+imethod = TemplateHullIntersection(octdirs)
+cmethod = LazyClustering(1)
+alg = LGG09(δ=0.03, template=octdirs, approx_model=Forward(setops=octdirs))
+sol_PLAD01_BND30 = solve(prob_PLAD01_BND30,
+                         alg=alg),
+                         clustering_method=cmethod,
+                         intersection_method=imethod,
+                         intersect_source_invariant=false,
+                         tspan = (0.0 .. 20.0))
+property = dmin_specification(sol_PLAD01_BND30, -30.0)
+push!(validation, Int(property))
+SUITE[model][cases[3]] = @benchmarkable solve($prob_PLAD01_BND30
+                            alg=$alg),
+                            clustering_method=$cmethod,
+                            intersection_method=$imethod,
+                            intersect_source_invariant=false,
+                            tspan = (0.0 .. 20.0))
 
 # ----------------------------------------
 #  PLAD01-BND30 (discrete time)
 # ----------------------------------------
-
-# ----------------------------------------
-#  PLAN01-UNB50 (dense time)
-# ----------------------------------------
-
-# ----------------------------------------
-#  PLAN01-UNB50 (discrete time)
-# ----------------------------------------
-
-=#
-
-sol_PLAD01_BND42 = nothing
-sol_PLAD01_BND42_d = nothing
-GC.gc()
+prob_PLAD01_BND30 = platoon(; deterministic_switching=true)
+imethod = TemplateHullIntersection(octdirs)
+cmethod = LazyClustering(1)
+alg = LGG09(δ=0.1, template=octdirs, approx_model=NoBloating())
+sol_PLAD01_BND30_d = solve(prob_PLAD01_BND30,
+                         alg=alg),
+                         clustering_method=cmethod,
+                         intersection_method=imethod,
+                         intersect_source_invariant=false,
+                         tspan = (0.0 .. 20.0))
+property = dmin_specification(sol_PLAD01_BND30_d, -30.0)
+push!(validation, Int(property))
+SUITE[model][cases[4]] = @benchmarkable solve($prob_PLAD01_BND30
+                            alg=$alg),
+                            clustering_method=$cmethod,
+                            intersection_method=$imethod,
+                            intersect_source_invariant=false,
+                            tspan = (0.0 .. 20.0))
 
 # ==============================================================================
 # Execute benchmarks and save benchmark results
@@ -151,4 +126,23 @@ end
 # ==============================================================================
 # Plot
 # ==============================================================================
-#
+
+fig = Plots.plot()
+
+Plots.plot!(fig, sol_PLAD01_BND30, vars=(0, 1), linecolor=:blue, color=:blue, alpha=0.8, lw=1.0,
+    tickfont=font(30, "Times"), guidefontsize=45,
+    xlab=L"t",
+    ylab=L"x_{1}",
+    xtick=[0, 5, 10, 15, 20.], ytick=[-30, -20, -10, 0],
+    xlims=(0., 20.), ylims=(-31, 5),
+    bottom_margin=6mm, left_margin=2mm, right_margin=4mm, top_margin=3mm,
+    size=(1000, 1000))
+
+savefig("ARCH-COMP20-JuliaReach-Platoon-PLAD01-BND30.pdf")
+
+# release memory
+sol_PLAD01_BND42 = nothing
+sol_PLAD01_BND42_d = nothing
+sol_PLAD01_BND30 = nothing
+sol_PLAD01_BND30_d = nothing
+GC.gc()

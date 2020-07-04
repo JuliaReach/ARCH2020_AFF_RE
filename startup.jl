@@ -15,11 +15,11 @@ function main()
     println("Running AFF benchmarks...")
 
     # Heat 3D benchmark
-    println("###\nRunning Heat 3D benchmark\n###")
+    #println("###\nRunning Heat 3D benchmark\n###")
     #include("models/Heat3D/heat3d_benchmark.jl")
 
     # ISS benchmark
-    println("###\nRunning ISS benchmark\n###")
+    #println("###\nRunning ISS benchmark\n###")
     #include("models/ISS/ISS_benchmark.jl")
 
     # Spacecraft benchmark
@@ -31,7 +31,7 @@ function main()
     #include("models/Building/building_benchmark.jl")
 
     # Platoon benchmark
-    #println("###\nRunning platoon benchmark\n###")
+    println("###\nRunning platoon benchmark\n###")
     include("models/Platoon/Platoon_benchmark.jl")
 
     # Gearbox break benchmark

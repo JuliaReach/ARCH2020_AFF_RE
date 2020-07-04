@@ -410,8 +410,8 @@ version = "1.2.2"
 
 [[LazySets]]
 deps = ["Distributed", "GLPK", "GLPKMathProgInterface", "InteractiveUtils", "IntervalArithmetic", "JuMP", "LinearAlgebra", "MathProgBase", "Random", "RecipesBase", "Reexport", "Requires", "SharedArrays", "SparseArrays"]
-git-tree-sha1 = "0c7b1bea8b597540ee976eeb2004ca388b520fe5"
-repo-rev = "mforets/union"
+git-tree-sha1 = "a4c191fee762f52314f37b54a9bef859ebec8979"
+repo-rev = "ARCH2020_AFF"
 repo-url = "https://github.com/JuliaReach/LazySets.jl.git"
 uuid = "b4f0291d-fe17-52bc-9479-3d1a343d9043"
 version = "1.36.2"
