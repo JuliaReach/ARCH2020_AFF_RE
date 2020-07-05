@@ -60,15 +60,15 @@ imethod = TemplateHullIntersection(octdirs)
 cmethod = LazyClustering(1)
 alg = LGG09(δ=0.03, template=octdirs, approx_model=Forward(setops=octdirs))
 sol_PLAD01_BND30 = solve(prob_PLAD01_BND30,
-                         alg=alg),
+                         alg=alg,
                          clustering_method=cmethod,
                          intersection_method=imethod,
                          intersect_source_invariant=false,
                          tspan = (0.0 .. 20.0))
 property = dmin_specification(sol_PLAD01_BND30, -30.0)
 push!(validation, Int(property))
-SUITE[model][cases[3]] = @benchmarkable solve($prob_PLAD01_BND30
-                            alg=$alg),
+SUITE[model][cases[3]] = @benchmarkable solve($prob_PLAD01_BND30,
+                            alg=$alg,
                             clustering_method=$cmethod,
                             intersection_method=$imethod,
                             intersect_source_invariant=false,
@@ -82,15 +82,15 @@ imethod = TemplateHullIntersection(octdirs)
 cmethod = LazyClustering(1)
 alg = LGG09(δ=0.1, template=octdirs, approx_model=NoBloating())
 sol_PLAD01_BND30_d = solve(prob_PLAD01_BND30,
-                         alg=alg),
-                         clustering_method=cmethod,
-                         intersection_method=imethod,
-                         intersect_source_invariant=false,
-                         tspan = (0.0 .. 20.0))
+                           alg=alg,
+                           clustering_method=cmethod,
+                           intersection_method=imethod,
+                           intersect_source_invariant=false,
+                           tspan = (0.0 .. 20.0))
 property = dmin_specification(sol_PLAD01_BND30_d, -30.0)
 push!(validation, Int(property))
-SUITE[model][cases[4]] = @benchmarkable solve($prob_PLAD01_BND30
-                            alg=$alg),
+SUITE[model][cases[4]] = @benchmarkable solve($prob_PLAD01_BND30,
+                            alg=$alg,
                             clustering_method=$cmethod,
                             intersection_method=$imethod,
                             intersect_source_invariant=false,
@@ -134,7 +134,7 @@ Plots.plot!(fig, sol_PLAD01_BND30, vars=(0, 1), linecolor=:blue, color=:blue, al
     xlab=L"t",
     ylab=L"x_{1}",
     xtick=[0, 5, 10, 15, 20.], ytick=[-30, -20, -10, 0],
-    xlims=(0., 20.), ylims=(-31, 5),
+    xlims=(0., 20.), ylims=(-31, 7),
     bottom_margin=6mm, left_margin=2mm, right_margin=4mm, top_margin=3mm,
     size=(1000, 1000))
 
