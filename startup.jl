@@ -7,7 +7,7 @@ Pkg.activate(@__DIR__)
 Pkg.instantiate()
 
 const TEST_LONG = false # if true, the longer test suite is run; may take several hours
-                        # and requires least 16gb RAM
+                        # and requires at least 16gb RAM
 const TARGET_FOLDER = "result"
 const RESULTS_FILE = "results.csv"
 
