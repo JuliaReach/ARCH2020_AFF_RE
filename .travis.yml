@@ -9,4 +9,4 @@ before_install:
   - docker run -i juliareach
 
 script:
-  - travis_wait 40 julia --project=. startup.jl
+  - travis_wait 60 julia --project=. startup.jl
