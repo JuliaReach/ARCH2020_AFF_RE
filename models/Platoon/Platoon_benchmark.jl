@@ -11,8 +11,8 @@ SUITE[model] = BenchmarkGroup()
 include("Platoon.jl")
 validation = []
 
-const boxdirs = BoxDirections{Float64, Vector{Float64}}(10)
-const octdirs = CustomDirections([Vector(vi) for vi in OctDirections(10)])
+boxdirs = BoxDirections{Float64, Vector{Float64}}(10)
+octdirs = CustomDirections([Vector(vi) for vi in OctDirections(10)])
 
 # ----------------------------------------
 #  PLAD01-BND42 (dense time)
