@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/JuliaReach/ARCH2020_AFF_RE.svg?branch=master)](https://travis-ci.org/JuliaReach/ARCH2020_AFF_RE)
+
 # ARCH2020_AFF_RE
 
 This is the repeatability evaluation package for the
