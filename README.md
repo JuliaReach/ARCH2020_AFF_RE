@@ -8,27 +8,42 @@ Competition on Verifying Continuous and Hybrid Systems Friendly Competition
 
 ## Installation
 
-To build the container, you need the program `docker`.
-For installation instructions on different platforms, consult
-[the Docker documentation](https://docs.docker.com/install/).
-For general information about `Docker`, see
-[this guide](https://docs.docker.com/get-started/).
-
-Once you have installed Docker, clone this repository and build the container:
+There are two ways to install and run this RE: either using the Julia script,
+or using the included Dockerfile. In both cases, first clone this repository:
 
 ```shell
 $ git clone https://github.com/JuliaReach/ARCH2020_AFF_RE.git
 $ cd ARCH2020_AFF_RE
-$ docker build . -t juliareach
 ```
 
-To run the container with the benchmarks, type:
+**Using the Julia script.** First install the Julia language in your system following
+the instructions in the [Downloads page](http://julialang.org/downloads). Once
+you have installed Julia installed in your system, do
 
 ```shell
-$ docker run -i juliareach
+$ julia startup.jl
 ```
+to run all the benchmarks. Afer this command has finished, the results will be stored
+under the folder `result/results.csv` and the generated plots in your working directory. 
 
-Or to run it interactively, type:
+**Using the Docker container.** To build the container, you need the program `docker`.
+For installation instructions on different platforms, consult
+[the Docker documentation](https://docs.docker.com/install/).
+For general information about `Docker`, see
+[this guide](https://docs.docker.com/get-started/).
+Once you have installed Docker, start the `measure_all` script:
+script:
+
+```shell
+$ measure_all
+```
+The output results will be saved under the folder `result/`,
+and the generated plots will be in your working directory.
+
+---
+
+The Docker container can also be run interactively.
+To run it interactively, type:
 
 ```shell
 $ docker run -it juliareach bash
@@ -38,45 +53,6 @@ $ julia
 julia> include("startup.jl")
 ```
 
-## Models
+## About this RE
 
-**Important Note.** The `master` branch in this repository provides a `Manifest.toml` file that is meant to be a
-"screenshot" of the package ecosystem for this RE. If you intend to use
-`JuliaReach` for other purposes than RE, we strongly recommend that you instead
-use the current long-term-support Julia version and follow the installation
-instructions in
-[ReachabilityAnalysis.jl](https://github.com/JuliaReach/ReachabilityAnalysis.jl).
-
-## Plots
-
-The plots are stored in the main folder as `*.png` files.
-To obtain these files, run the image interactively, specify an output volume,
-and in the end copy the files to the output volume.
-In the example below we call the output volume `result`.
-
-```shell
-$ docker run -it -v result:/result juliareach bash
-
-$ julia -e 'include("startup.jl")'
-
-$ cp *.png /result
-```
-
-Then one can access the plots via the following command from outside:
-
-```shell
-$ docker cp FANCY_NAME:/result/ .
-```
-
-Here `FANCY_NAME` is the name of the Docker container, which can be found via:
-
-```shell
-$ docker container ls --all
-```
-
-Here is an example of the output of that command:
-
-```shell
-CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
-1f661e604079        juliareach          "bash"              15 minutes ago      Exited (0) 2 minutes ago                       upbeat_ride
-```
+This repeatability evaluation package relies on Julia's package manager, `Pkg`, to create an environment that can be used to exactly use the same package versions in different machines. For further instructions on creating this RE, see [this wiki](https://github.com/JuliaReach/ARCH2020_NLN_RE/wiki/Instructions-for-creating-this-RE).
