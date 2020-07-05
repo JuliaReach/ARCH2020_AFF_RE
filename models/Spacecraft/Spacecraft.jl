@@ -6,7 +6,7 @@ const x  = 1  # x position (negative!)
 const y  = 2  # y position (negative!)
 const vx = 3  # x velocity
 const vy = 4  # y velocity
-const t  = 5  # time
+t  = 5  # time
 
 # number of variables
 const n = 4 + 1;
