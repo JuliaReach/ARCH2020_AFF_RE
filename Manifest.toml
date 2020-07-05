@@ -410,8 +410,8 @@ version = "1.2.2"
 
 [[LazySets]]
 deps = ["Distributed", "GLPK", "GLPKMathProgInterface", "InteractiveUtils", "IntervalArithmetic", "JuMP", "LinearAlgebra", "MathProgBase", "Random", "RecipesBase", "Reexport", "Requires", "SharedArrays", "SparseArrays"]
-git-tree-sha1 = "0c7b1bea8b597540ee976eeb2004ca388b520fe5"
-repo-rev = "mforets/union"
+git-tree-sha1 = "a4c191fee762f52314f37b54a9bef859ebec8979"
+repo-rev = "ARCH2020_AFF"
 repo-url = "https://github.com/JuliaReach/LazySets.jl.git"
 uuid = "b4f0291d-fe17-52bc-9479-3d1a343d9043"
 version = "1.36.2"
@@ -652,11 +652,11 @@ uuid = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
 
 [[ReachabilityAnalysis]]
 deps = ["HybridSystems", "IntervalArithmetic", "IntervalMatrices", "LazySets", "LinearAlgebra", "MathematicalSystems", "Parameters", "Printf", "ProgressMeter", "RecipesBase", "RecursiveArrayTools", "Reexport", "Requires", "SparseArrays", "StaticArrays", "TaylorIntegration", "TaylorModels", "TaylorSeries", "UnPack"]
-git-tree-sha1 = "715ac69d1862aa7769cd87e7f107f99bf6269bf6"
-repo-rev = "v0.7.4"
+git-tree-sha1 = "9a9d9003716ff384219da09f5d6fd3eb54ab3a01"
+repo-rev = "ARCH2020_AFF"
 repo-url = "https://github.com/JuliaReach/ReachabilityAnalysis.jl.git"
 uuid = "1e97bd63-91d1-579d-8e8d-501d2b57c93f"
-version = "0.7.4"
+version = "0.7.5"
 
 [[RecipesBase]]
 git-tree-sha1 = "54f8ceb165a0f6d083f0d12cb4996f5367c6edbc"
