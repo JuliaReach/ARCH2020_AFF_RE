@@ -26,7 +26,7 @@ you have installed Julia installed in your system, do
 $ julia startup.jl
 ```
 to run all the benchmarks. Afer this command has finished, the results will be stored
-under the folder `result/results.csv` and the generated plots in your working directory. 
+under the folder `result/results.csv` and the generated plots in your working directory.
 
 **Using the Docker container.** To build the container, you need the program `docker`.
 For installation instructions on different platforms, consult
@@ -54,6 +54,12 @@ $ julia
 
 julia> include("startup.jl")
 ```
+
+---
+
+The file `startup.jl` contains a flag `TEST_LONG` (default: `false`) that can be
+used to select to run or not the longer instances, such as the HEAT04 model that
+may take ~ 1 hour.
 
 ## About this RE
 
