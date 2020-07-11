@@ -40,8 +40,10 @@ function main()
     include("models/Platoon/Platoon_benchmark.jl")
 
     # Electromechanic break benchmark
-    println("###\nRunning electromechanic-break benchmark\n###")
-    include("models/EMBrake/embrake_benchmark.jl")
+    if TEST_LONG
+        println("###\nRunning electromechanic-break benchmark\n###")
+        include("models/EMBrake/embrake_benchmark.jl")
+    end
 
     print(io, "\n")
     println("Finished running benchmarks.")
