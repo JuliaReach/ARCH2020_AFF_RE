@@ -1,12 +1,41 @@
-[![Build Status](https://travis-ci.org/JuliaReach/ARCH2020_AFF_RE.svg?branch=master)](https://travis-ci.org/JuliaReach/ARCH2020_AFF_RE)
+# ARCH2020 AFF
 
-# ARCH2020_AFF_RE
+This is the JuliaReach repeatability evaluation (RE) package for the ARCH-COMP
+2020 category report: Continuous and Hybrid Systems with Linear Continuous
+Dynamics of the 4th International Competition on Verifying Continuous and Hybrid
+Systems (ARCH-COMP '20).
 
-This is the repeatability evaluation package for the
-ARCH-COMP20 Category Report: Continuous and Hybrid Systems with Linear Dynamics
-of the 4th International
-Competition on Verifying Continuous and Hybrid Systems Friendly Competition
-(ARCH-COMP '20).
+To cite the work, you can use:
+
+```
+@inproceedings{AlthoffBBFFFKLM20,
+  author    = {Matthias Althoff and
+               Stanley Bak and
+               Zongnan Bao and
+               Marcelo Forets and
+               Goran Frehse and
+               Daniel Freire and
+               Niklas Kochdumper and
+               Yangge Li and
+               Sayan Mitra and
+               Rajarshi Ray and
+               Christian Schilling and
+               Stefan Schupp and
+               Mark Wetzlinger},
+  editor    = {Goran Frehse and
+               Matthias Althoff},
+  title     = {{ARCH-COMP20} Category Report: Continuous and Hybrid Systems with
+               Linear Continuous Dynamics},
+  booktitle = {{ARCH}},
+  series    = {EPiC Series in Computing},
+  volume    = {74},
+  pages     = {16--48},
+  publisher = {EasyChair},
+  year      = {2020},
+  url       = {https://doi.org/10.29007/7dt2},
+  doi       = {10.29007/7dt2}
+}
+```
 
 ## Installation
 
